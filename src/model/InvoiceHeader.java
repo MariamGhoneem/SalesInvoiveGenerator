@@ -1,15 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- *
- * @author hp
- */
 public class InvoiceHeader {
     private int invoiceNum;
     private Date invoiceDate;
@@ -48,14 +40,25 @@ public class InvoiceHeader {
     }
 
     public ArrayList<InvoiceLine> getLines() {
+        if(lines == null){
+            lines = new ArrayList();
+        }
         return lines;
     }
 
+    
     @Override
     public String toString() {
         return "InvoiceHeader{" + "invoiceNum=" + invoiceNum + ", invoiceDate=" + invoiceDate + ", customerName=" + customerName + ", lines=" + lines + '}';
     }
 
     
+    public Double getInvTotal(){
+        double total= 0.0;
+        for(InvoiceLine line: getLines() ){
+            total += line.getTotal();
+        }
+        return total;
+    }
     
 }
