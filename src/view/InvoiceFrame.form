@@ -13,11 +13,17 @@
               <Properties>
                 <Property name="label" type="java.lang.String" value="Load File"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="loadItm.addActionListener(headerController);&#xd;&#xa;"/>
+              </AuxValues>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="saveItm">
               <Properties>
                 <Property name="label" type="java.lang.String" value="Save File"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="saveItm.addActionListener(headerController);"/>
+              </AuxValues>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -230,21 +236,33 @@
       <Properties>
         <Property name="label" type="java.lang.String" value="Create New Invoice"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="createInvBtn.addActionListener(headerController);&#xd;&#xa;"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="dltInvBtn">
       <Properties>
         <Property name="label" type="java.lang.String" value="Delete Invoive"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="dltInvBtn.addActionListener(headerController);"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="saveBtn">
       <Properties>
         <Property name="label" type="java.lang.String" value="Save"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="saveBtn.addActionListener(lineController);&#xd;&#xa;"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="cancelBtn">
       <Properties>
         <Property name="label" type="java.lang.String" value="Cancel"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="cancelBtn.addActionListener(lineController);&#xd;&#xa;"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="numLbl">
       <Properties>

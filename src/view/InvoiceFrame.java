@@ -4,6 +4,9 @@
  */
 package view;
 
+import controller.HeaderController;
+import controller.LineController;
+
 /**
  *
  * @author hp
@@ -14,6 +17,8 @@ public class InvoiceFrame extends javax.swing.JFrame {
      * Creates new form InvoiceFrame
      */
     public InvoiceFrame() {
+        headerController = new HeaderController();
+        lineController = new LineController();
         initComponents();
     }
 
@@ -37,9 +42,13 @@ public class InvoiceFrame extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         invItmTable = new javax.swing.JTable();
         createInvBtn = new javax.swing.JButton();
+        createInvBtn.addActionListener(headerController);
         dltInvBtn = new javax.swing.JButton();
+        dltInvBtn.addActionListener(headerController);
         saveBtn = new javax.swing.JButton();
+        saveBtn.addActionListener(lineController);
         cancelBtn = new javax.swing.JButton();
+        cancelBtn.addActionListener(lineController);
         numLbl = new javax.swing.JLabel();
         dateLbl = new javax.swing.JLabel();
         nameLbl = new javax.swing.JLabel();
@@ -47,7 +56,9 @@ public class InvoiceFrame extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         loadItm = new javax.swing.JMenuItem();
+        loadItm.addActionListener(headerController);
         saveItm = new javax.swing.JMenuItem();
+        saveItm.addActionListener(headerController);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -265,4 +276,6 @@ public class InvoiceFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem saveItm;
     private javax.swing.JLabel totalLbl;
     // End of variables declaration//GEN-END:variables
+    private HeaderController headerController;
+    private LineController lineController;
 }
