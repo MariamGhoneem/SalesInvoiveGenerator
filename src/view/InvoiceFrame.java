@@ -6,6 +6,9 @@ package view;
 
 import controller.HeaderController;
 import controller.LineController;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import model.InvoiceHeader;
 
 /**
  *
@@ -17,8 +20,6 @@ public class InvoiceFrame extends javax.swing.JFrame {
      * Creates new form InvoiceFrame
      */
     public InvoiceFrame() {
-        headerController = new HeaderController();
-        lineController = new LineController();
         initComponents();
     }
 
@@ -104,9 +105,9 @@ public class InvoiceFrame extends javax.swing.JFrame {
 
         dltInvBtn.setLabel("Delete Invoive");
 
-        saveBtn.setLabel("Save");
+        saveBtn.setText("New");
 
-        cancelBtn.setLabel("Cancel");
+        cancelBtn.setText("Delete");
 
         numLbl.setText(".");
 
@@ -247,7 +248,11 @@ public class InvoiceFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InvoiceFrame().setVisible(true);
+                //new InvoiceFrame().setVisible(true);
+                InvoiceFrame f = new InvoiceFrame();
+                f.headerController.loadFile("InvoiceHeader.csv", "InvoiceLine.csv");
+                f.setVisible(true);
+                
             }
         });
     }
@@ -276,6 +281,24 @@ public class InvoiceFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem saveItm;
     private javax.swing.JLabel totalLbl;
     // End of variables declaration//GEN-END:variables
-    private HeaderController headerController;
-    private LineController lineController;
+    
+    private HeaderController headerController = new HeaderController(this);
+    private LineController lineController = new LineController(this);
+    public static SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    private ArrayList<InvoiceHeader> invoices;
+    
+    public HeaderController getHController() {
+        return headerController;
+    }
+    
+    public LineController getLController() {
+        return lineController;
+    }
+
+    public ArrayList<InvoiceHeader> getInvoices() {
+        if (invoices == null) {
+            invoices = new ArrayList<>();
+        }
+        return invoices;
+    }
 }
