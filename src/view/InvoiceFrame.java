@@ -6,9 +6,15 @@ package view;
 
 import controller.HeaderController;
 import controller.LineController;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import javax.swing.JLabel;
+import model.HeaderTableModel;
 import model.InvoiceHeader;
+import model.LineTableModel;
+import javax.swing.JTable;
+
 
 /**
  *
@@ -35,6 +41,7 @@ public class InvoiceFrame extends javax.swing.JFrame {
         invTblL = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         invTable = new javax.swing.JTable();
+        invTable.getSelectionModel().addListSelectionListener(headerController);
         invNumL = new javax.swing.JLabel();
         invDateL = new javax.swing.JLabel();
         custNameL = new javax.swing.JLabel();
@@ -67,13 +74,10 @@ public class InvoiceFrame extends javax.swing.JFrame {
 
         invTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane1.setViewportView(invTable);
@@ -90,13 +94,10 @@ public class InvoiceFrame extends javax.swing.JFrame {
 
         invItmTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane2.setViewportView(invItmTable);
@@ -248,7 +249,6 @@ public class InvoiceFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                //new InvoiceFrame().setVisible(true);
                 InvoiceFrame f = new InvoiceFrame();
                 f.headerController.loadFile("InvoiceHeader.csv", "InvoiceLine.csv");
                 f.setVisible(true);
@@ -284,21 +284,85 @@ public class InvoiceFrame extends javax.swing.JFrame {
     
     private HeaderController headerController = new HeaderController(this);
     private LineController lineController = new LineController(this);
-    public static SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+    public static DateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
     private ArrayList<InvoiceHeader> invoices;
+    private HeaderTableModel headerTableModel;
+    private LineTableModel lineTableModel;
     
-    public HeaderController getHController() {
-        return headerController;
-    }
-    
-    public LineController getLController() {
-        return lineController;
-    }
+//    public HeaderController getHController() {
+//        return headerController;
+//    }
+//    
+//    public LineController getLController() {
+//        return lineController;
+//    }
 
     public ArrayList<InvoiceHeader> getInvoices() {
         if (invoices == null) {
             invoices = new ArrayList<>();
         }
         return invoices;
+    }
+
+    public HeaderTableModel getHeaderTableModel() {
+        return headerTableModel;
+    }
+
+    public void setHeaderTableModel(HeaderTableModel headerTableModel) {
+        this.headerTableModel = headerTableModel;
+        this.invTable.setModel(headerTableModel);
+    }
+    
+    public LineTableModel getLineTableModel() {
+        return lineTableModel;
+    }
+
+    public void setLineTableModel(LineTableModel lineTableModel) {
+        this.lineTableModel = lineTableModel;
+        this.invItmTable.setModel(lineTableModel);
+    }
+    
+    public InvoiceHeader getInvoiceByNum(int num) {
+//        InvoiceHeader inv = null;
+        for (InvoiceHeader item : getInvoices()) {
+            if (item.getInvoiceNum()== num) {
+                return item;
+                //break;
+            }
+        }
+        return null;
+    }
+    
+    public InvoiceHeader getInvoiceByNum2(int num) {
+        for (InvoiceHeader item : getInvoices()) {
+            if (item.getInvoiceNum() == num) {
+                return item;
+            }
+        }
+        return null;
+    }
+    
+    public JTable getInvoicesTable() {
+        return invTable;
+    }
+
+    public JTable getLinesTable() {
+        return invItmTable;
+    }
+    
+    public JLabel getCustomerNameLbl() {
+        return nameLbl;
+    }
+    
+    public JLabel getInvDateLbl() {
+        return dateLbl;
+    }
+    
+    public JLabel getInvNumLbl() {
+        return numLbl;
+    }
+    
+    public JLabel getInvTotalLbl() {
+        return totalLbl;
     }
 }

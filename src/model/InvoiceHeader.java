@@ -1,4 +1,6 @@
 package model;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -45,20 +47,20 @@ public class InvoiceHeader {
         }
         return lines;
     }
-
     
-    @Override
-    public String toString() {
-        return "InvoiceHeader{" + "invoiceNum=" + invoiceNum + ", invoiceDate=" + invoiceDate + ", customerName=" + customerName + ", lines=" + lines + '}';
-    }
-
-    
-    public Double getInvTotal(){
-        double total= 0.0;
+    public int getInvTotal(){
+        int total = 0;
         for(InvoiceLine line: getLines() ){
             total += line.getTotal();
         }
         return total;
     }
     
+    public int getTotal() {
+        return getLines().stream().mapToInt(item -> item.getTotal()).sum();
+    }
+    
+    public void addInvLine(InvoiceLine line){
+        getLines().add(line);
+    }
 }

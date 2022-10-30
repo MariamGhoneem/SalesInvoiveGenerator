@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import model.InvoiceHeader;
 import view.InvoiceFrame;
 
 public class LineController implements ActionListener {
@@ -16,23 +17,31 @@ public class LineController implements ActionListener {
         switch(e.getActionCommand()){
             
             case "Save":
-                save();
+                newItm();
                 break;
                 
             case "Cancel":
-                cancel();
+                delete();
                 break;
                 
         }
    
     }
 
-    private void save() {
+    private void newItm() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    private void cancel() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private void delete() {
+        //unfinished
+        int selectedInvoice = frame.getInvoicesTable().getSelectedRow();
+        int selectedLine = frame.getLinesTable().getSelectedRow();
+        if(selectedInvoice != -1 && selectedLine != -1){
+            InvoiceHeader invoice = frame.getInvoices().get(selectedInvoice);
+            invoice.getLines().remove(selectedLine);
+            frame.getLineTableModel().fireTableDataChanged();
+            frame.getHeaderTableModel().fireTableDataChanged();
+        }
     }
     
 }

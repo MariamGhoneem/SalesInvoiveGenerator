@@ -3,14 +3,15 @@ package model;
 public class InvoiceLine {
     private InvoiceHeader inv;
     private String itemName;
-    private Double itemPrice;
-    private Double count;
+    private int itemPrice;
+    private int count;
 
-    public InvoiceLine(InvoiceHeader inv, String itemName, Double itemPrice, Double count) {
-        this.inv = inv;
+    public InvoiceLine(InvoiceHeader inv, String itemName, int itemPrice, int count) {
         this.itemName = itemName;
         this.itemPrice = itemPrice;
         this.count = count;
+        this.inv = inv; inv.getLines().add(this);
+
     }
     
 
@@ -30,32 +31,32 @@ public class InvoiceLine {
         this.itemName = itemName;
     }
 
-    public Double getItemPrice() {
+    public int getItemPrice() {
         return itemPrice;
     }
 
-    public void setItemPrice(Double itemPrice) {
+    public void setItemPrice(int itemPrice) {
         this.itemPrice = itemPrice;
     }
 
-    public Double getCount() {
+    public int getCount() {
         return count;
     }
 
-    public void setCount(Double count) {
+    public void setCount(int count) {
         this.count = count;
     }
-
     
+    public int getTotal(){
+        return itemPrice * count;
+    }
+
     @Override
     public String toString() {
         return "InvoiceLine{" + "itemName=" + itemName + ", itemPrice=" + itemPrice + ", count=" + count + '}';
     }
     
     
-    public Double getTotal(){
-        return itemPrice*count;
-    }
 }
 
 
