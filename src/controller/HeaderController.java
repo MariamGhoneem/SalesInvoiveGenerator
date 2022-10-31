@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -182,7 +183,48 @@ public class HeaderController implements ActionListener, ListSelectionListener {
     }
 
     private void saveFile() {
+        JFileChooser fc = new JFileChooser();
+        File hFile = null;
+        File lFile = null;
+        JOptionPane.showMessageDialog(frame, "Select Header File", "Header File", JOptionPane.QUESTION_MESSAGE);
+        int result = fc.showSaveDialog(frame);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            hFile = fc.getSelectedFile();
+            JOptionPane.showMessageDialog(frame, "Select Line File", "Line File", JOptionPane.QUESTION_MESSAGE);
+            result = fc.showSaveDialog(frame);
+            if (result == JFileChooser.APPROVE_OPTION) {
+                lFile = fc.getSelectedFile();
+            }
+        }
+        
+        if (hFile != null && lFile != null) {
+            String hData = "";
+            String lData = "";
+            for (InvoiceHeader header : frame.getInvoices()) {
+                hData += header.getAsCSV();
+                hData += "\n";
+                
+                for (InvoiceLine line : header.getLines()) {
+                    lData += line.getAsCSV();
+                    lData += "\n";
+                }
+            }
+            System.out.println("Check");
+            try {
+                FileWriter hfw = new FileWriter(hFile);
+                FileWriter lfw = new FileWriter(lFile);
+                hfw.write(hData);
+                lfw.write(lData);
+                hfw.flush();
+                lfw.flush();
+                hfw.close();
+                lfw.close();  
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(frame, "Error while writing files: \n" + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
+    
     
     private List<String> readFile(File f) throws IOException {
         FileReader fr = new FileReader(f);

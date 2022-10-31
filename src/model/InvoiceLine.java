@@ -56,6 +56,10 @@ public class InvoiceLine {
         return "InvoiceLine{" + "itemName=" + itemName + ", itemPrice=" + itemPrice + ", count=" + count + '}';
     }
     
+    public String getAsCSV() {
+        return getInv().getInvoiceNum()+","+getItemName()+","+itemPrice+","+count;
+    }
+    
     
 }
 

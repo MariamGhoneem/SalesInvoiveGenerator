@@ -3,6 +3,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import view.InvoiceFrame;
 
 public class InvoiceHeader {
     private int invoiceNum;
@@ -62,5 +63,9 @@ public class InvoiceHeader {
     
     public void addInvLine(InvoiceLine line){
         getLines().add(line);
+    }
+    
+    public String getAsCSV() {
+        return invoiceNum+","+InvoiceFrame.sdf.format(invoiceDate)+","+customerName;
     }
 }
