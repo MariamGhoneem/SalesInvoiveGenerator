@@ -19,9 +19,14 @@ import model.InvoiceHeader;
 import model.InvoiceLine;
 import model.LineTableModel;
 import view.InvoiceFrame;
+import view.InvoiceHeaderDialog;
+import view.InvoiceLineDialog;
 
 public class HeaderController implements ActionListener, ListSelectionListener {
     private InvoiceFrame frame;
+    private InvoiceHeaderDialog headerDialog;
+    private InvoiceLineDialog lineDialog;
+
     
     public HeaderController(InvoiceFrame frame) {
         this.frame = frame;
@@ -45,6 +50,14 @@ public class HeaderController implements ActionListener, ListSelectionListener {
                 
             case "Save File":
                 saveFile();
+                break;
+            
+            case "newInvoiceOK":
+                newInvoiceOK();
+                break;
+
+            case "newInvoiceCancel":
+                newInvoiceCancel();
                 break;
         }
         
@@ -71,6 +84,8 @@ public class HeaderController implements ActionListener, ListSelectionListener {
     }
 
     private void newInv() {
+        headerDialog = new InvoiceHeaderDialog(frame);
+        headerDialog.setVisible(true);
     }
 
     private void deleteInv() {
@@ -79,6 +94,28 @@ public class HeaderController implements ActionListener, ListSelectionListener {
             frame.getInvoices().remove(selectedRow);
             frame.getHeaderTableModel().fireTableDataChanged();
         }
+    }
+    
+    private void newInvoiceOK() {
+        try {
+            String dateStr = headerDialog.getInvDateField().getText();
+            String name = headerDialog.getCustNameField().getText();
+
+            Date date = frame.sdf.parse(dateStr);
+            int num = frame.getNextInvoiceNum();
+            InvoiceHeader inv = new InvoiceHeader(num, date, name);
+            frame.getInvoices().add(inv);
+            frame.getHeaderTableModel().fireTableDataChanged();
+            newInvoiceCancel();
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(frame, "Error in Date format", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void newInvoiceCancel() {
+        headerDialog.setVisible(false);
+        headerDialog.dispose();
+        headerDialog = null;
     }
 
     public void loadFile(String hPath, String lPath) {
@@ -159,4 +196,6 @@ public class HeaderController implements ActionListener, ListSelectionListener {
 
         return lines;
     }
+    
+   
 }

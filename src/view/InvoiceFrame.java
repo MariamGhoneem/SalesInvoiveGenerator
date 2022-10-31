@@ -289,13 +289,13 @@ public class InvoiceFrame extends javax.swing.JFrame {
     private HeaderTableModel headerTableModel;
     private LineTableModel lineTableModel;
     
-//    public HeaderController getHController() {
-//        return headerController;
-//    }
-//    
-//    public LineController getLController() {
-//        return lineController;
-//    }
+    public HeaderController getHController() {
+        return headerController;
+    }
+    
+    public LineController getLController() {
+        return lineController;
+    }
 
     public ArrayList<InvoiceHeader> getInvoices() {
         if (invoices == null) {
@@ -364,5 +364,13 @@ public class InvoiceFrame extends javax.swing.JFrame {
     
     public JLabel getInvTotalLbl() {
         return totalLbl;
+    }
+    
+    public int getNextInvoiceNum() {
+        int num = 0;
+        for (InvoiceHeader inv : getInvoices()) {
+            if (inv.getInvoiceNum() > num) num = inv.getInvoiceNum();
+        }
+        return num + 1;
     }
 }
