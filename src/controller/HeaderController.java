@@ -146,6 +146,7 @@ public class HeaderController implements ActionListener, ListSelectionListener {
                 List<String> hData = readFile(hFile);
                 List<String> lData = readFile(lFile);
                 System.out.println("check");
+                frame.getInvoices().clear();
                 for (String header : hData) {
                     /*
                         header = "1,12-11-2020,Sameer"
@@ -171,7 +172,9 @@ public class HeaderController implements ActionListener, ListSelectionListener {
                     int price = Integer.parseInt(parts[2]);
                     int count = Integer.parseInt(parts[3]);
                     InvoiceHeader invoice = frame.getInvoiceByNum(num);
-                    InvoiceLine invline = new InvoiceLine(invoice, name, price, count);
+                    if (invoice != null) {
+                        InvoiceLine invline = new InvoiceLine(invoice, name, price, count);
+                    }
                 }
                 System.out.println("check");
 
